@@ -1,46 +1,53 @@
-// NAVBAR SHADOW ON SCROLL
+/* =========================
+   CUSTOM CURSOR
+========================= */
 
-window.addEventListener("scroll", () => {
+const cursor = document.querySelector(".cursor");
 
-  const navbar = document.querySelector(".navbar");
+document.addEventListener("mousemove", (e) => {
 
-  if (window.scrollY > 50) {
-    navbar.style.boxShadow = "0 10px 30px rgba(0,0,0,0.08)";
-  } else {
-    navbar.style.boxShadow = "none";
-  }
+  cursor.style.left = e.clientX + "px";
+  cursor.style.top = e.clientY + "px";
 
 });
 
 
-// SIMPLE FADE-IN ANIMATION
+/* =========================
+   SCROLL ANIMATION
+========================= */
 
-const cards = document.querySelectorAll(
-  ".skill-card, .project-card, .color-card"
-);
+const sections = document.querySelectorAll(".section");
 
-const observer = new IntersectionObserver((entries) => {
+window.addEventListener("scroll", () => {
 
-  entries.forEach((entry) => {
+  const trigger = window.innerHeight / 1.2;
 
-    if (entry.isIntersecting) {
-      entry.target.style.opacity = "1";
-      entry.target.style.transform = "translateY(0)";
+  sections.forEach((section) => {
+
+    const top = section.getBoundingClientRect().top;
+
+    if(top < trigger){
+      section.classList.add("show");
     }
 
   });
 
-}, {
-  threshold: 0.2
 });
 
 
-cards.forEach((card) => {
+/* =========================
+   HERO TEXT ANIMATION
+========================= */
 
-  card.style.opacity = "0";
-  card.style.transform = "translateY(40px)";
-  card.style.transition = "0.8s ease";
+const heroTitle = document.querySelector(".hero h1");
 
-  observer.observe(card);
+heroTitle.style.opacity = "0";
+heroTitle.style.transform = "translateY(50px)";
 
-});
+setTimeout(() => {
+
+  heroTitle.style.transition = "1s ease";
+  heroTitle.style.opacity = "1";
+  heroTitle.style.transform = "translateY(0px)";
+
+}, 300);
